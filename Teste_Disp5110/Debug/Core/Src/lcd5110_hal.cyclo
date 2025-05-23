@@ -1,0 +1,12 @@
+../Core/Src/lcd5110_hal.c:4:13:LCD5110_Delay	1
+../Core/Src/lcd5110_hal.c:8:13:LCD5110_DC	1
+../Core/Src/lcd5110_hal.c:12:13:LCD5110_RST	1
+../Core/Src/lcd5110_hal.c:16:13:LCD5110_CE	1
+../Core/Src/lcd5110_hal.c:20:6:LCD5110_Send	1
+../Core/Src/lcd5110_hal.c:24:6:LCD5110_SendCommand	1
+../Core/Src/lcd5110_hal.c:31:6:LCD5110_SendData	1
+../Core/Src/lcd5110_hal.c:38:6:LCD5110_Init	1
+../Core/Src/lcd5110_hal.c:53:6:LCD5110_Clear	2
+../Core/Src/lcd5110_hal.c:59:6:LCD5110_SetXY	1
+../Core/Src/lcd5110_hal.c:64:6:LCD5110_WriteChar	4
+../Core/Src/lcd5110_hal.c:70:6:LCD5110_WriteString	2
