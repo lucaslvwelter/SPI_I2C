@@ -128,13 +128,21 @@ int main(void)
 	  float ax = leituraA.accelX / 16384.0;
 	  float ay = leituraA.accelY / 16384.0;
 
+	  char buffer[100];
+	  snprintf(buffer, sizeof(buffer), "AX: %.2f\tAY: %.2f\r\n", ax, ay);
+	  HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
+
 	  if (!aguardandoMovimento) {
-		  direcaoAtual = (Direcao)(1 + rand() % 4);  // Evita DIR_NONE
+		  static Direcao direcaoAnterior = DIR_NEUTRO;
+		  do {
+		  	direcaoAtual = (Direcao)(rand() % 4);  // Gera de 0 a 3
+		  } while (direcaoAtual == direcaoAnterior);
+		  direcaoAnterior = direcaoAtual;
 		  desenharSeta(direcaoAtual);
 		  tempoSeta = HAL_GetTick();
 		  aguardandoMovimento = 1;
 	  } else {
-		  if (HAL_GetTick() - tempoSeta > 500) {  // Espera 500ms para movimento
+		  if (HAL_GetTick() - tempoSeta > 1000) {  // Espera 500ms para movimento
 			  Direcao mov = detectarMovimento(ax, ay, THRESHOLD);
 
 			  if (mov == direcaoAtual) {
@@ -237,10 +245,10 @@ void desenharSeta(Direcao dir) {
 
 Direcao detectarMovimento(float ax, float ay, float threshold)
 {
-	if (ax > threshold) return DIR_DIREITA;
-	if (ax < -threshold) return DIR_ESQUERDA;
-	if (ay > threshold) return DIR_CIMA;
-	if (ay < -threshold) return DIR_BAIXO;
+	if (ay < -threshold) return DIR_ESQUERDA;
+	if (ay > threshold) return DIR_DIREITA;
+	if (ax > threshold) return DIR_BAIXO;
+	if (ax < -threshold) return DIR_CIMA;
 	return DIR_NEUTRO;
 }
 
