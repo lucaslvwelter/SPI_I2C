@@ -66,6 +66,7 @@ leituraAcel leituraA;
 void SystemClock_Config(void);
 Direcao detectarMovimento(float ax, float ay, float threshold);
 void desenharSeta(Direcao dir);
+void mostrarResultado(uint8_t acertou);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -142,19 +143,19 @@ int main(void)
 		  tempoSeta = HAL_GetTick();
 		  aguardandoMovimento = 1;
 	  } else {
-		  if (HAL_GetTick() - tempoSeta > 1000) {  // Espera 500ms para movimento
-			  Direcao mov = detectarMovimento(ax, ay, THRESHOLD);
+		  if (HAL_GetTick() - tempoSeta > 1000) {
+		      Direcao mov = detectarMovimento(ax, ay, THRESHOLD);
 
-			  if (mov == direcaoAtual) {
-				  const char *msg = "Acertou!\r\n";
-				  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
-			  } else {
-				  const char *msg = "Errou!\r\n";
-				  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
-			  }
+		      if (mov != DIR_NEUTRO) {
+		          if (mov == direcaoAtual) {
+		              mostrarResultado(1);  // acertou
+		          } else {
+		              mostrarResultado(0);  // errou
+		          }
 
-			  aguardandoMovimento = 0;
-			  HAL_Delay(1000);  // Espera antes da próxima seta
+		          aguardandoMovimento = 0;
+		      }
+		      // Se mov == NEUTRO, apenas ignora e espera próxima leitura
 		  }
 	  }
 
@@ -251,6 +252,21 @@ Direcao detectarMovimento(float ax, float ay, float threshold)
 	if (ax < -threshold) return DIR_CIMA;
 	return DIR_NEUTRO;
 }
+
+void mostrarResultado(uint8_t acertou) {
+    LCD5110_Clear();
+    LCD5110_SetXY(0, 0);
+
+    if (acertou == 1) {
+        LCD5110_WriteString("Acertou!");
+    } else {
+        LCD5110_WriteString("Errou!");
+    }
+
+    HAL_Delay(1000);  // Dá tempo para ver o resultado
+}
+
+
 
 /* USER CODE END 4 */
 
