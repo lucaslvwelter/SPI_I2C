@@ -1,6 +1,7 @@
 #include "mpu6050_func.h"
 #include "i2c.h"
 #include "usart.h"
+#include "direcao.h"
 
 static uint8_t mpu6050Addr = (0x68 << 1);
 
@@ -45,4 +46,13 @@ void mpu6050ReadGyro(leituraGyro *leitura) {
     leitura->gyroX = (int16_t) (recData[0] << 8 | recData [1]);
     leitura->gyroY = (int16_t) (recData[2] << 8 | recData [3]);
     leitura->gyroZ = (int16_t) (recData[4] << 8 | recData [5]);
+}
+
+Direcao detectarMovimento(float ax, float ay, float threshold)
+{
+	if (ay < -threshold) return DIR_ESQUERDA;
+	if (ay > threshold) return DIR_DIREITA;
+	if (ax > threshold) return DIR_BAIXO;
+	if (ax < -threshold) return DIR_CIMA;
+	return DIR_NEUTRO;
 }

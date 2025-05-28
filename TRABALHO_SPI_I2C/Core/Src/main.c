@@ -29,19 +29,14 @@
 #include "lcd5110_hal.h"
 #include "lcd5110_graphics.h"
 #include "mpu6050_func.h"
+#include "direcao.h"
 #include <stdlib.h>
 #include <time.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef enum {
-  DIR_CIMA,
-  DIR_BAIXO,
-  DIR_ESQUERDA,
-  DIR_DIREITA,
-  DIR_NEUTRO
-} Direcao;
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -65,9 +60,6 @@ int acertosSequencia = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-Direcao detectarMovimento(float ax, float ay, float threshold);
-void desenharSeta(Direcao dir);
-void mostrarResultado(uint8_t acertou);
 void enviarAcertosSequencia(void);
 /* USER CODE BEGIN PFP */
 
@@ -84,7 +76,6 @@ void enviarAcertosSequencia(void);
   */
 int main(void)
 {
-
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -113,7 +104,7 @@ int main(void)
   MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
   mpu6050Init(); // Inicializa o sensor
-  LCD5110_Init();
+  LCD5110_Init(); // Inicializa o display
   LCD5110_clrScr();
   HAL_TIM_Base_Start_IT(&htim10);
 
@@ -158,7 +149,6 @@ int main(void)
 		      // Se mov == NEUTRO, apenas ignora e espera próxima leitura
 		  }
 	  }
-
 	  HAL_Delay(50);  // Suaviza leitura
     /* USER CODE END WHILE */
 
@@ -215,64 +205,12 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void desenharSeta(Direcao dir) {
-	LCD5110_clrScr();
-
-    switch (dir) {
-        case DIR_CIMA:
-        	LCD5110_drawLine(42, 30, 42, 10);
-			LCD5110_drawLine(42, 10, 36, 16);
-			LCD5110_drawLine(42, 10, 48, 16);
-			break;
-        case DIR_BAIXO:
-			LCD5110_drawLine(42, 10, 42, 30);
-			LCD5110_drawLine(42, 30, 36, 24);
-			LCD5110_drawLine(42, 30, 48, 24);
-			break;
-        case DIR_ESQUERDA:
-			LCD5110_drawLine(50, 24, 30, 24);
-			LCD5110_drawLine(30, 24, 36, 18);
-			LCD5110_drawLine(30, 24, 36, 30);
-			break;
-        case DIR_DIREITA:
-			LCD5110_drawLine(30, 24, 50, 24);
-			LCD5110_drawLine(50, 24, 44, 18);
-			LCD5110_drawLine(50, 24, 44, 30);
-			break;
-        default:
-            break;
-    }
-}
-
-Direcao detectarMovimento(float ax, float ay, float threshold)
-{
-	if (ay < -threshold) return DIR_ESQUERDA;
-	if (ay > threshold) return DIR_DIREITA;
-	if (ax > threshold) return DIR_BAIXO;
-	if (ax < -threshold) return DIR_CIMA;
-	return DIR_NEUTRO;
-}
-
-void mostrarResultado(uint8_t acertou) {
-    LCD5110_Clear();
-    LCD5110_SetXY(0, 0);
-
-    if (acertou == 1) {
-        LCD5110_WriteString("Acertou!");
-    } else {
-        LCD5110_WriteString("Errou!");
-    }
-
-    HAL_Delay(1000);  // Dá tempo para ver o resultado
-}
-
 void enviarAcertosSequencia(void)
 {
     char buffer[32];
     int len = snprintf(buffer, sizeof(buffer), "ACERTOS:%d\r\n", acertosSequencia);
     HAL_UART_Transmit(&huart2, (uint8_t *)buffer, len, HAL_MAX_DELAY);
 }
-
 /* USER CODE END 4 */
 
 /**
@@ -306,6 +244,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-
-

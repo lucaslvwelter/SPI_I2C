@@ -1,6 +1,8 @@
 // lcd5110_graphics.c
 #include "lcd5110_hal.h"
 #include "lcd5110_graphics.h"
+#include "direcao.h"
+#include "main.h"
 
 static uint8_t scrbuf[504];
 
@@ -124,4 +126,46 @@ void LCD5110_drawCircle(int x0, int y0, int radius) {
         LCD5110_setPixel(x0 - y, y0 - x);
     }
     LCD5110_update();
+}
+
+void desenharSeta(Direcao dir) {
+	LCD5110_clrScr();
+
+    switch (dir) {
+        case DIR_CIMA:
+        	LCD5110_drawLine(42, 30, 42, 10);
+			LCD5110_drawLine(42, 10, 36, 16);
+			LCD5110_drawLine(42, 10, 48, 16);
+			break;
+        case DIR_BAIXO:
+			LCD5110_drawLine(42, 10, 42, 30);
+			LCD5110_drawLine(42, 30, 36, 24);
+			LCD5110_drawLine(42, 30, 48, 24);
+			break;
+        case DIR_ESQUERDA:
+			LCD5110_drawLine(50, 24, 30, 24);
+			LCD5110_drawLine(30, 24, 36, 18);
+			LCD5110_drawLine(30, 24, 36, 30);
+			break;
+        case DIR_DIREITA:
+			LCD5110_drawLine(30, 24, 50, 24);
+			LCD5110_drawLine(50, 24, 44, 18);
+			LCD5110_drawLine(50, 24, 44, 30);
+			break;
+        default:
+            break;
+    }
+}
+
+void mostrarResultado(uint8_t acertou) {
+    LCD5110_Clear();
+    LCD5110_SetXY(0, 0);
+
+    if (acertou == 1) {
+        LCD5110_WriteString("Acertou!");
+    } else {
+        LCD5110_WriteString("Errou!");
+    }
+
+    HAL_Delay(1000);  // Dá tempo para ver o resultado
 }

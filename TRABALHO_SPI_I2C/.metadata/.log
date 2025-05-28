@@ -1,0 +1,21 @@
+!SESSION 2025-05-28 17:45:45.064 -----------------------------------------------
+eclipse.buildId=Version 1.18.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pt_BR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-05-28 17:45:55.025
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-05-28 17:45:55.026
+!MESSAGE Log4j2 initialized with config file C:\Users\lucas\OneDrive\Documentos\Atividades-Liberato\4-ano\Micros_2\SPI_I2C\TRABALHO_SPI_I2C\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-05-28 17:46:01.899
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-05-28 17:46:54.499
+!MESSAGE Indexed 'Teste_MPU6050' (26 sources, 124 headers) in 3.07 sec: 12,540 declarations; 60,755 references; 1 unresolved inclusions; 92 syntax errors; 240 unresolved names (0.33%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-05-28 17:46:56.651
+!MESSAGE Indexed 'TRABALHO_SPI_I2C' (27 sources, 125 headers) in 2.13 sec: 12,269 declarations; 54,092 references; 1 unresolved inclusions; 93 syntax errors; 240 unresolved names (0.36%)

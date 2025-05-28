@@ -3,6 +3,7 @@
 #define INC_LCD5110_GRAPHICS_H_
 
 #include <stdint.h>
+#include "direcao.h"
 
 void LCD5110_update(void);
 void LCD5110_clrScr(void);
@@ -17,5 +18,7 @@ void LCD5110_clrVLine(int x, int y, int l);
 void LCD5110_drawLine(int x1, int y1, int x2, int y2);
 void LCD5110_drawRect(int x1, int y1, int x2, int y2);
 void LCD5110_drawCircle(int x, int y, int radius);
+void desenharSeta(Direcao dir);
+void mostrarResultado(uint8_t acertou);
 
 #endif /* INC_LCD5110_GRAPHICS_H_ */

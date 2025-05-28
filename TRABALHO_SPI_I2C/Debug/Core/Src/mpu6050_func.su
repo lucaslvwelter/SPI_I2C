@@ -1,3 +1,4 @@
-../Core/Src/mpu6050_func.c:7:6:mpu6050Init	32	static
-../Core/Src/mpu6050_func.c:32:6:mpu6050ReadAccel	40	static
-../Core/Src/mpu6050_func.c:41:6:mpu6050ReadGyro	40	static
+../Core/Src/mpu6050_func.c:8:6:mpu6050Init	32	static
+../Core/Src/mpu6050_func.c:33:6:mpu6050ReadAccel	40	static
+../Core/Src/mpu6050_func.c:42:6:mpu6050ReadGyro	40	static
+../Core/Src/mpu6050_func.c:51:9:detectarMovimento	24	static

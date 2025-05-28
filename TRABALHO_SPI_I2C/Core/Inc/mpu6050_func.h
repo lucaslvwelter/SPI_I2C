@@ -9,6 +9,7 @@
 #define INC_MPU6050_FUNC_H_
 
 #include "main.h"
+#include "direcao.h"
 
 typedef struct {
     int16_t accelX;
@@ -25,5 +26,6 @@ typedef struct leituraGyro {
 void mpu6050Init(void);
 void mpu6050ReadAccel(leituraAcel *leitura);
 void mpu6050ReadGyro(leituraGyro *leitura);
+Direcao detectarMovimento(float ax, float ay, float threshold);
 
 #endif /* MPU6050_H */
