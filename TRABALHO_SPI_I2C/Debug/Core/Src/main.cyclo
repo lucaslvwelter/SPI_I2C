@@ -1,6 +1,7 @@
-../Core/Src/main.c:83:5:main	6
+../Core/Src/main.c:85:5:main	6
 ../Core/Src/main.c:174:6:SystemClock_Config	3
 ../Core/Src/main.c:218:6:desenharSeta	5
 ../Core/Src/main.c:247:9:detectarMovimento	5
 ../Core/Src/main.c:256:6:mostrarResultado	2
-../Core/Src/main.c:277:6:Error_Handler	1
+../Core/Src/main.c:269:6:enviarAcertosSequencia	1
+../Core/Src/main.c:282:6:Error_Handler	1

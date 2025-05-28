@@ -60,6 +60,7 @@ typedef enum {
 uint8_t dir;
 float THRESHOLD = 0.5;
 leituraAcel leituraA;
+int acertosSequencia = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -67,6 +68,7 @@ void SystemClock_Config(void);
 Direcao detectarMovimento(float ax, float ay, float threshold);
 void desenharSeta(Direcao dir);
 void mostrarResultado(uint8_t acertou);
+void enviarAcertosSequencia(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -129,10 +131,6 @@ int main(void)
 	  float ax = leituraA.accelX / 16384.0;
 	  float ay = leituraA.accelY / 16384.0;
 
-	  char buffer[100];
-	  snprintf(buffer, sizeof(buffer), "AX: %.2f\tAY: %.2f\r\n", ax, ay);
-	  HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
-
 	  if (!aguardandoMovimento) {
 		  static Direcao direcaoAnterior = DIR_NEUTRO;
 		  do {
@@ -149,10 +147,12 @@ int main(void)
 		      if (mov != DIR_NEUTRO) {
 		          if (mov == direcaoAtual) {
 		              mostrarResultado(1);  // acertou
+		              acertosSequencia += 1;
 		          } else {
 		              mostrarResultado(0);  // errou
+		              acertosSequencia = 0;
 		          }
-
+		          enviarAcertosSequencia();
 		          aguardandoMovimento = 0;
 		      }
 		      // Se mov == NEUTRO, apenas ignora e espera próxima leitura
@@ -266,7 +266,12 @@ void mostrarResultado(uint8_t acertou) {
     HAL_Delay(1000);  // Dá tempo para ver o resultado
 }
 
-
+void enviarAcertosSequencia(void)
+{
+    char buffer[32];
+    int len = snprintf(buffer, sizeof(buffer), "ACERTOS:%d\r\n", acertosSequencia);
+    HAL_UART_Transmit(&huart2, (uint8_t *)buffer, len, HAL_MAX_DELAY);
+}
 
 /* USER CODE END 4 */
 
