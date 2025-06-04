@@ -20,5 +20,6 @@ void LCD5110_drawRect(int x1, int y1, int x2, int y2);
 void LCD5110_drawCircle(int x, int y, int radius);
 void desenharSeta(Direcao dir);
 void mostrarResultado(uint8_t acertou);
+void mostrarTelaInicial(void);
 
 #endif /* INC_LCD5110_GRAPHICS_H_ */

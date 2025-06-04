@@ -1,29 +1,17 @@
-19:32:48 **** Incremental Build of configuration Debug for project TRABALHO_SPI_I2C ****
+20:52:52 **** Incremental Build of configuration Debug for project TRABALHO_SPI_I2C ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'enviarAcertosSequencia':
-../Core/Src/main.c:211:15: warning: implicit declaration of function 'snprintf' [-Wimplicit-function-declaration]
-  211 |     int len = snprintf(buffer, sizeof(buffer), "ACERTOS:%d\r\n", acertosSequencia);
-      |               ^~~~~~~~
-../Core/Src/main.c:35:1: note: include '<stdio.h>' or provide a declaration of 'snprintf'
-   34 | #include <time.h>
-  +++ |+#include <stdio.h>
-   35 | /* USER CODE END Includes */
-../Core/Src/main.c:211:15: warning: incompatible implicit declaration of built-in function 'snprintf' [-Wbuiltin-declaration-mismatch]
-  211 |     int len = snprintf(buffer, sizeof(buffer), "ACERTOS:%d\r\n", acertosSequencia);
-      |               ^~~~~~~~
-../Core/Src/main.c:211:15: note: include '<stdio.h>' or provide a declaration of 'snprintf'
 arm-none-eabi-gcc -o "TRABALHO_SPI_I2C.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\lucas\OneDrive\Documentos\Atividades-Liberato\4-ano\Micros_2\SPI_I2C\TRABALHO_SPI_I2C\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TRABALHO_SPI_I2C.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: TRABALHO_SPI_I2C.elf
  
 arm-none-eabi-size  TRABALHO_SPI_I2C.elf 
 arm-none-eabi-objdump -h -S TRABALHO_SPI_I2C.elf  > "TRABALHO_SPI_I2C.list"
    text	   data	    bss	    dec	    hex	filename
-  35372	    512	   2736	  38620	   96dc	TRABALHO_SPI_I2C.elf
+  38396	    516	   2756	  41668	   a2c4	TRABALHO_SPI_I2C.elf
 Finished building: default.size.stdout
  
 Finished building: TRABALHO_SPI_I2C.list
  
 
-19:32:50 Build Finished. 0 errors, 2 warnings. (took 1s.71ms)
+20:52:53 Build Finished. 0 errors, 0 warnings. (took 1s.235ms)
 

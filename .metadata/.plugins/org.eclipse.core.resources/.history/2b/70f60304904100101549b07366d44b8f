@@ -1,0 +1,28 @@
+/*
+ * variaveis.h
+ *
+ *  Created on: Jun 4, 2025
+ *      Author: Usuário
+ */
+
+#ifndef VARIAVEIS_H_
+#define VARIAVEIS_H_
+
+#include "direcao.h"
+#include "mpu6050_func.h"
+
+extern uint8_t dir;
+extern float THRESHOLD;
+extern leituraAcel leituraA;
+extern int acertosSequencia;
+extern int start;
+extern int stop;
+extern Direcao direcaoAtual;
+extern Direcao direcaoAnterior;
+extern uint32_t tempoSeta;
+extern uint8_t aguardandoMovimento;
+extern int mestre_mandou;
+extern uint8_t tela_inicial_mostrada;
+extern uint8_t recebido;
+
+#endif /* VARIAVEIS_H_ */

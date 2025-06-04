@@ -65,6 +65,10 @@ void Error_Handler(void);
 #define USART_RX_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define BOTAO_STOP_Pin GPIO_PIN_1
+#define BOTAO_STOP_GPIO_Port GPIOB
+#define BOTAO_START_Pin GPIO_PIN_2
+#define BOTAO_START_GPIO_Port GPIOB
 #define LCD_RST_Pin GPIO_PIN_12
 #define LCD_RST_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
@@ -77,6 +81,8 @@ void Error_Handler(void);
 #define LCD_CE_GPIO_Port GPIOC
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define MESTRE_MANDOU_Pin GPIO_PIN_5
+#define MESTRE_MANDOU_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

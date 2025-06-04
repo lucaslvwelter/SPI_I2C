@@ -60,8 +60,8 @@ all: main-build
 main-build: Teste_MPU6050.elf secondary-outputs
 
 # Tool invocations
-Teste_MPU6050.elf Teste_MPU6050.map: $(OBJS) $(USER_OBJS) C:\Users\22000206\Downloads\tcc_tro-main\tcc_tro-main\Teste_MPU6050\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Teste_MPU6050.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\22000206\Downloads\tcc_tro-main\tcc_tro-main\Teste_MPU6050\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Teste_MPU6050.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Teste_MPU6050.elf Teste_MPU6050.map: $(OBJS) $(USER_OBJS) C:\Users\lucas\OneDrive\Documentos\Atividades-Liberato\4-ano\Micros_2\SPI_I2C\Teste_MPU6050\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Teste_MPU6050.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\lucas\OneDrive\Documentos\Atividades-Liberato\4-ano\Micros_2\SPI_I2C\Teste_MPU6050\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Teste_MPU6050.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

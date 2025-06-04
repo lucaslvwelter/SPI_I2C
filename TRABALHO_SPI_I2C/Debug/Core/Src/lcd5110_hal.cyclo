@@ -10,3 +10,4 @@
 ../Core/Src/lcd5110_hal.c:59:6:LCD5110_SetXY	1
 ../Core/Src/lcd5110_hal.c:64:6:LCD5110_WriteChar	4
 ../Core/Src/lcd5110_hal.c:70:6:LCD5110_WriteString	2
+../Core/Src/lcd5110_hal.c:76:6:LCD5110_WriteStringCentered	1

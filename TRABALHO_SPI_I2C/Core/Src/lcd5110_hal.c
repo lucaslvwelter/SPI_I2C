@@ -73,3 +73,11 @@ void LCD5110_WriteString(char *s) {
     }
 }
 
+void LCD5110_WriteStringCentered(char *str, uint8_t y) {
+    int len = strlen(str);             // número de caracteres
+    int text_width = len * 6;          // 6 pixels por caractere
+    int x_pixel = (84 - text_width) / 2; // posição X centralizada em pixels
+    int x_column = x_pixel / 6;        // converte para coluna
+    LCD5110_SetXY(x_column, y);
+    LCD5110_WriteString(str);
+}

@@ -1,4 +1,5 @@
 "./Core/Src/font6_8.o"
+"./Core/Src/funcGerais.o"
 "./Core/Src/gpio.o"
 "./Core/Src/i2c.o"
 "./Core/Src/lcd5110_graphics.o"
@@ -13,6 +14,7 @@
 "./Core/Src/system_stm32f4xx.o"
 "./Core/Src/tim.o"
 "./Core/Src/usart.o"
+"./Core/Src/variaveis.o"
 "./Core/Startup/startup_stm32f446retx.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o"

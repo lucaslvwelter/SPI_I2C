@@ -10,3 +10,4 @@
 ../Core/Src/lcd5110_hal.c:59:6:LCD5110_SetXY	16	static
 ../Core/Src/lcd5110_hal.c:64:6:LCD5110_WriteChar	24	static
 ../Core/Src/lcd5110_hal.c:70:6:LCD5110_WriteString	16	static
+../Core/Src/lcd5110_hal.c:76:6:LCD5110_WriteStringCentered	32	static

@@ -24,5 +24,6 @@ void LCD5110_Clear(void);
 void LCD5110_SetXY(uint8_t x, uint8_t y);
 void LCD5110_WriteChar(char c);
 void LCD5110_WriteString(char *s);
+void LCD5110_WriteStringCentered(char *str, uint8_t y);
 
 #endif /* INC_LCD5110_HAL_H_ */

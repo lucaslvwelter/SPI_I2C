@@ -162,10 +162,17 @@ void mostrarResultado(uint8_t acertou) {
     LCD5110_SetXY(0, 0);
 
     if (acertou == 1) {
-        LCD5110_WriteString("Acertou!");
+        LCD5110_WriteStringCentered("Acertou!", 2);
     } else {
-        LCD5110_WriteString("Errou!");
+        LCD5110_WriteStringCentered("Errou!", 2);
     }
 
     HAL_Delay(1000);  // Dá tempo para ver o resultado
+}
+
+void mostrarTelaInicial(void)
+{
+	LCD5110_Clear();
+	LCD5110_SetXY(0, 0);
+	LCD5110_WriteStringCentered("MESTRE MANDOU", 2);
 }

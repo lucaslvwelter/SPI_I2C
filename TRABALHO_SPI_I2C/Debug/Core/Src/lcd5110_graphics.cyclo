@@ -13,3 +13,4 @@
 ../Core/Src/lcd5110_graphics.c:97:6:LCD5110_drawCircle	3
 ../Core/Src/lcd5110_graphics.c:131:6:desenharSeta	5
 ../Core/Src/lcd5110_graphics.c:160:6:mostrarResultado	2
+../Core/Src/lcd5110_graphics.c:173:6:mostrarTelaInicial	1
