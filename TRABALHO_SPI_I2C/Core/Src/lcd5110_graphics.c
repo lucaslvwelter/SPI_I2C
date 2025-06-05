@@ -13,7 +13,7 @@ void LCD5110_update(void) {
     }
 }
 
-void LCD5110_clrScr(void) {
+void LCD5110_clrScr(void) { // limpa o display
     for (int i = 0; i < 504; i++) {
         scrbuf[i] = 0x00;
     }
@@ -128,7 +128,7 @@ void LCD5110_drawCircle(int x0, int y0, int radius) {
     LCD5110_update();
 }
 
-void desenharSeta(Direcao dir) {
+void desenharSeta(Direcao dir) { // desenha a respectiva seta
 	LCD5110_clrScr();
 
     switch (dir) {
@@ -157,22 +157,22 @@ void desenharSeta(Direcao dir) {
     }
 }
 
-void mostrarResultado(uint8_t acertou) {
+void mostrarResultado(uint8_t acertou) { // exibe os resultados, se acertou ou errou
     LCD5110_Clear();
     LCD5110_SetXY(0, 0);
 
-    if (acertou == 1) {
-        LCD5110_WriteStringCentered("Acertou!", 2);
-    } else {
-        LCD5110_WriteStringCentered("Errou!", 2);
+    if (acertou == 1) { // se acertou
+        LCD5110_WriteStringCentered("Acertou!", 2); // exibe ACERTOU centralizado
+    } else { // se errou
+        LCD5110_WriteStringCentered("Errou!", 2); // exibe ERROU centralizado
     }
 
     HAL_Delay(1000);  // Dá tempo para ver o resultado
 }
 
-void mostrarTelaInicial(void)
+void mostrarTelaInicial(void) // mostra a tela inicial do jogo
 {
 	LCD5110_Clear();
 	LCD5110_SetXY(0, 0);
-	LCD5110_WriteStringCentered("MESTRE MANDOU", 2);
+	LCD5110_WriteStringCentered("MESTRE MANDOU", 2); // exibe MESTRE MANDOU centralizado
 }

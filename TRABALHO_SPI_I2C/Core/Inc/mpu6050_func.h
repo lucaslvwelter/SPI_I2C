@@ -11,7 +11,7 @@
 #include "main.h"
 #include "direcao.h"
 
-typedef struct {
+typedef struct { // pega os movimentos do usuário
     int16_t accelX;
     int16_t accelY;
     int16_t accelZ;
@@ -24,8 +24,8 @@ typedef struct leituraGyro {
 } leituraGyro;
 
 void mpu6050Init(void);
-void mpu6050ReadAccel(leituraAcel *leitura);
+void mpu6050ReadAccel(leituraAcel *leitura); // faz a leitura a partir dos movimentos do usuário
 void mpu6050ReadGyro(leituraGyro *leitura);
-Direcao detectarMovimento(float ax, float ay, float threshold);
+Direcao detectarMovimento(float ax, float ay, float threshold); // faz a detecção do movimento
 
 #endif /* MPU6050_H */

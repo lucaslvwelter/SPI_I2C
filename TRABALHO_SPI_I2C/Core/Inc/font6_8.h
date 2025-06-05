@@ -4,6 +4,6 @@
 
 #include <stdint.h>
 
-extern const uint8_t font6_8[96][6];
+extern const uint8_t font6_8[96][6]; // caracteres do ASCII
 
 #endif /* INC_FONT6_8_H_ */

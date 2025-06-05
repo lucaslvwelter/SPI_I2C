@@ -44,18 +44,18 @@
 /* USER CODE END PM */
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-uint8_t dir;
-float THRESHOLD = 0.5;
-leituraAcel leituraA;
-int acertosSequencia = 0;
-int start = 0;
-int stop = 1;
-Direcao direcaoAtual = DIR_NEUTRO;
-Direcao direcaoAnterior = DIR_NEUTRO;
-uint32_t tempoSeta = 0;
-uint8_t aguardandoMovimento = 0;
-int mestre_mandou = 0;
-uint8_t tela_inicial_mostrada = 0;
+uint8_t dir; // armazena a direção da seta
+float THRESHOLD = 0.5; // sensibilidade do movimento
+leituraAcel leituraA; // variavel que armazena a aceleração
+int acertosSequencia = 0; // armazena a sequencia de acertos
+int start = 0; // botao de iniciar
+int stop = 1; // botao de parar
+Direcao direcaoAtual = DIR_NEUTRO; // estado inicial da placa
+Direcao direcaoAnterior = DIR_NEUTRO; // estado inicial da placa
+uint32_t tempoSeta = 0; // tempo que aparece a seta (calculo com HAL_GetTick)
+uint8_t aguardandoMovimento = 0; //
+int mestre_mandou = 0; // estado do LED e ordem do "mestre mandou"
+uint8_t tela_inicial_mostrada = 0; // exibe a tela inicial do jogo
 /* USER CODE END PV */
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -90,43 +90,43 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	mpu6050Init(); // Inicializa o sensor
 	LCD5110_Init(); // Inicializa o display
-	LCD5110_clrScr();
-	srand(HAL_GetTick());
-	mostrarTelaInicial();
+	LCD5110_clrScr(); // Limpa o display
+	srand(HAL_GetTick()); // Aleatoriza a seed
+	mostrarTelaInicial(); // Exibe a tela inicial do jogo
 	/* USER CODE END 2 */
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		lerBotoes();
-		if (stop && !tela_inicial_mostrada)
+		lerBotoes(); // Lê o estado dos botoões de start e stop
+		if (stop && !tela_inicial_mostrada) // Exibe a tela inicial se stop for clicado
 		{
 			mostrarTelaInicial();
 			tela_inicial_mostrada = 1;
 		}
-		if (start && !stop)
+		if (start && !stop) // Se start for clicado, começa o jogo
 		{
-			if (!aguardandoMovimento)
+			if (!aguardandoMovimento) // exibe as setas para após poder observar o movimento
 			{
-				mestre_mandou = rand() % 2;
-				if (mestre_mandou == 0)
+				mestre_mandou = rand() % 2; // Lógica do Mestre Mandou
+				if (mestre_mandou == 0) // caso o número aleatório seja 0
 				{
 					// NÃO mandei
-					HAL_GPIO_WritePin(MESTRE_MANDOU_GPIO_Port, MESTRE_MANDOU_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(MESTRE_MANDOU_GPIO_Port, MESTRE_MANDOU_Pin, GPIO_PIN_RESET); // LED FICA APAGADO
 					// Gera nova direção
 					do
 					{
-						direcaoAtual = (Direcao)(rand() % 4);
-					} while (direcaoAtual == direcaoAnterior);
+						direcaoAtual = (Direcao)(rand() % 4); // aleatoriza a seta para ser diferente da anterior
+					} while (direcaoAtual == direcaoAnterior); // caso seja a mesma seta da rodada anterior, faz ela alterar
 					direcaoAnterior = direcaoAtual;
-					desenharSeta(direcaoAtual); // Exibe seta mesmo com mestre_mandou == 0
+					desenharSeta(direcaoAtual); // Exibe seta
 					uint32_t tempoInicial = HAL_GetTick();
-					while (HAL_GetTick() - tempoInicial < 3000) // observa por 3 segundos
+					while (HAL_GetTick() - tempoInicial < 1000) // tempo entre setas
 					{
-						mpu6050ReadAccel(&leituraA);
+						mpu6050ReadAccel(&leituraA); // faz a leitura do sensor para observar se o usuário se moveu
 						float ax = leituraA.accelX / 16384.0;
 						float ay = leituraA.accelY / 16384.0;
-						Direcao mov = detectarMovimento(ax, ay, THRESHOLD);
+						Direcao mov = detectarMovimento(ax, ay, THRESHOLD); // verifica se o usuário fez um movimento brusco
 						if (mov != DIR_NEUTRO)
 						{
 							// Movimento foi detectado com LED apagado => erro!
@@ -142,25 +142,24 @@ int main(void)
 					}
 					HAL_Delay(500); // pequena espera antes da próxima rodada (opcional)
 				}
-				else
+				else // CASO MESTRE MANDOU = 1
 				{
-					// MESTRE MANDOU
-					HAL_GPIO_WritePin(MESTRE_MANDOU_GPIO_Port, MESTRE_MANDOU_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(MESTRE_MANDOU_GPIO_Port, MESTRE_MANDOU_Pin, GPIO_PIN_SET); // LED FICA ACESO
 					// Gera nova direção
 					do
 					{
-						direcaoAtual = (Direcao)(rand() % 4);
-					} while (direcaoAtual == direcaoAnterior);
+						direcaoAtual = (Direcao)(rand() % 4); // aleatoriza uma seta
+					} while (direcaoAtual == direcaoAnterior); // faz a seta ser diferente da anterior
 					direcaoAnterior = direcaoAtual;
-					desenharSeta(direcaoAtual);
+					desenharSeta(direcaoAtual); // desenha a seta
 					tempoSeta = HAL_GetTick();
-					aguardandoMovimento = 1;
+					aguardandoMovimento = 1; // espera o movimento do usuário
 				}
 			}
-			else
+			else // se o usuário não se mecher, o usuário perde
 			{
-				// Aguarda movimento por no máximo 3 segundos
-				if (HAL_GetTick() - tempoSeta > 3000)
+				// Aguarda movimento por no máximo 2 segundos
+				if (HAL_GetTick() - tempoSeta > 2000)
 				{
 					// Timeout
 					mostrarResultado(0);
@@ -172,28 +171,38 @@ int main(void)
 				}
 				else if (HAL_GetTick() - tempoSeta > 1000) // só começa a verificar após 1s
 				{
-					mpu6050ReadAccel(&leituraA);
+					mpu6050ReadAccel(&leituraA); // faz a leitura do movimento
 					float ax = leituraA.accelX / 16384.0;
 					float ay = leituraA.accelY / 16384.0;
-					Direcao mov = detectarMovimento(ax, ay, THRESHOLD);
+					Direcao mov = detectarMovimento(ax, ay, THRESHOLD); // verifica se o movimento é válido
 					if (mov != DIR_NEUTRO)
 					{
-						if (mov == direcaoAtual)
+						if (mov == direcaoAtual) // se movimento igual à seta
 						{
-							mostrarResultado(1);
-							acertosSequencia++;
+							mostrarResultado(1); // exibe acertou no display
+							acertosSequencia++; // aumenta a quantidade de acertos
 						}
-						else
+						else // se o usuário errou
 						{
-							mostrarResultado(0);
-							acertosSequencia = 0;
+							mostrarResultado(0); // exibe errou no display
+							acertosSequencia = 0; // zera os acertos em sequência
 							start = 0;
-							stop = 1;
+							stop = 1; // volta a tela inicial do jogo
 							tela_inicial_mostrada = 0;
 						}
-						enviarAcertosSequencia();
+						enviarAcertosSequencia(); // envia a quantidade de acertos
 						aguardandoMovimento = 0;
-						HAL_Delay(1000); // Pausa após resposta
+						HAL_Delay(500); // Pausa após resposta
+					}
+					else // se movimento for igual a neutro, ele zera os acertos
+					{
+						acertosSequencia = 0; // zera os acertos em sequência
+						start = 0;
+						stop = 1; // volta a tela inicial do jogo
+						tela_inicial_mostrada = 0;
+						enviarAcertosSequencia(); // envia a quantidade de acertos
+						aguardandoMovimento = 0;
+						HAL_Delay(500); // Pausa após resposta
 					}
 				}
 			}

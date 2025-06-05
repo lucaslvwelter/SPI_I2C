@@ -20,10 +20,10 @@ extern SPI_HandleTypeDef hspi2;
 void LCD5110_Init(void);
 void LCD5110_SendCommand(uint8_t cmd);
 void LCD5110_SendData(uint8_t data);
-void LCD5110_Clear(void);
+void LCD5110_Clear(void); // limpar o display
 void LCD5110_SetXY(uint8_t x, uint8_t y);
 void LCD5110_WriteChar(char c);
 void LCD5110_WriteString(char *s);
-void LCD5110_WriteStringCentered(char *str, uint8_t y);
+void LCD5110_WriteStringCentered(char *str, uint8_t y); // escreve a frase centralizada
 
 #endif /* INC_LCD5110_HAL_H_ */

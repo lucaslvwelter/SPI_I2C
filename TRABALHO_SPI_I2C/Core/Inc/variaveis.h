@@ -11,6 +11,7 @@
 #include "direcao.h"
 #include "mpu6050_func.h"
 
+// variáveis que seram utilizadas na main
 extern uint8_t dir;
 extern float THRESHOLD;
 extern leituraAcel leituraA;

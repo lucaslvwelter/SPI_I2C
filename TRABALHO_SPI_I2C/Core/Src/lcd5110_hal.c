@@ -50,7 +50,7 @@ void LCD5110_Init(void) {
     LCD5110_Clear();
 }
 
-void LCD5110_Clear(void) {
+void LCD5110_Clear(void) { // limpar o display
     for (int i = 0; i < 504; i++)
         LCD5110_SendData(0x00);
     LCD5110_SetXY(0, 0);
@@ -73,7 +73,7 @@ void LCD5110_WriteString(char *s) {
     }
 }
 
-void LCD5110_WriteStringCentered(char *str, uint8_t y) {
+void LCD5110_WriteStringCentered(char *str, uint8_t y) { // exibir frases centralizadas
     int len = strlen(str);             // número de caracteres
     int text_width = len * 6;          // 6 pixels por caractere
     int x_pixel = (84 - text_width) / 2; // posição X centralizada em pixels

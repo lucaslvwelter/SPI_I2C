@@ -60,8 +60,8 @@ all: main-build
 main-build: TRABALHO_SPI_I2C.elf secondary-outputs
 
 # Tool invocations
-TRABALHO_SPI_I2C.elf TRABALHO_SPI_I2C.map: $(OBJS) $(USER_OBJS) C:\Users\lucas\OneDrive\Documentos\Atividades-Liberato\4-ano\Micros_2\SPI_I2C\TRABALHO_SPI_I2C\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TRABALHO_SPI_I2C.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\lucas\OneDrive\Documentos\Atividades-Liberato\4-ano\Micros_2\SPI_I2C\TRABALHO_SPI_I2C\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TRABALHO_SPI_I2C.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+TRABALHO_SPI_I2C.elf TRABALHO_SPI_I2C.map: $(OBJS) $(USER_OBJS) C:\Users\Usuário\Documents\Micros_II\TRABALHO_SPI_I2C\TRABALHO_SPI_I2C\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TRABALHO_SPI_I2C.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Usuário\Documents\Micros_II\TRABALHO_SPI_I2C\TRABALHO_SPI_I2C\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TRABALHO_SPI_I2C.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

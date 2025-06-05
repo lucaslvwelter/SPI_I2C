@@ -30,7 +30,7 @@ void mpu6050Init(void) {
     }
 }
 
-void mpu6050ReadAccel(leituraAcel *leitura) {
+void mpu6050ReadAccel(leituraAcel *leitura) { // faz um cálculo para poder pegar a direção do movimento
     static const uint8_t accelXoutHReg = 0x3B;
     uint8_t recData[6];
     HAL_I2C_Mem_Read(&hi2c1, mpu6050Addr, accelXoutHReg, 1, recData, 6, 1000);
@@ -48,7 +48,7 @@ void mpu6050ReadGyro(leituraGyro *leitura) {
     leitura->gyroZ = (int16_t) (recData[4] << 8 | recData [5]);
 }
 
-Direcao detectarMovimento(float ax, float ay, float threshold)
+Direcao detectarMovimento(float ax, float ay, float threshold) // verifica qual foi o movimento e se foi válido
 {
 	if (ay < -threshold) return DIR_ESQUERDA;
 	if (ay > threshold) return DIR_DIREITA;
